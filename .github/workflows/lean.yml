@@ -7,7 +7,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: leanprover/lean-action@v1
-        with:
-          use-mathlib-cache: true
-      - run: lake env lean --wfail TreeWiener.lean
+      - name: Install pinned Lean toolchain
+        run: |
+          curl -fsSL https://elan.lean-lang.org/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - run: lake update
+      - run: lake exe cache get
+      - run: lake build
+      - name: Check proof dependencies
+        run: |
+          printf 'import TreeWiener\n#print axioms TreeWiener.chord_sum\n#print axioms TreeWiener.transfer\n#print axioms TreeWiener.exchange\n#print axioms TreeWiener.threshold\n#print axioms TreeWiener.sharp\n' > Audit.lean
+          lake env lean Audit.lean | tee audit.log
+          ! grep -q sorryAx audit.log

@@ -56,7 +56,7 @@ theorem exchange (a b p q B σ Ux Uz Uy : ℝ)
   calc
     _ ≤ b*(Ux-Uz+σ*p*a)+a*(Uy-Uz+σ*q*b) := by nlinarith only [hc]
     _ = (b/p)*(p*(Ux-Uz+σ*p*a))+(a/q)*(q*(Uy-Uz+σ*q*b)) := by
-      field_simp <;> ring
+      field_simp [ne_of_gt hp, ne_of_gt hq] <;> ring
     _ ≤ _ := by nlinarith only [hx', hy']
 
 /-- Common denominator estimate for both gaps in Theorem 2.
@@ -96,3 +96,4 @@ theorem sharp (l m h : ℝ) :
   constructor <;> ring
 
 end TreeWiener
+
