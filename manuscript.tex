@@ -1,0 +1,81 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,geometry}
+\geometry{margin=1in}
+\title{Sharp exchange bounds for the weighted Wiener index on a fixed tree}
+\author{}
+\date{}
+\begin{document}
+\maketitle
+\begin{abstract}
+Consider a fixed tree with positive edge lengths. Each vertex carries a stationary mass and receives one load from a prescribed multiset. We bound the improvement in the weighted Wiener index obtained by exchanging two loads when a path contains a strict interior valley in a minimization problem or a strict interior peak in a maximization problem. The bound depends on the mass of all branches attached at the interior vertex. It gives sharp additive thresholds below which every near-optimal assignment has connected upper or lower level sets, respectively. With two load values on a path, both extrema can be found in linear time even when the edge lengths and stationary masses are nonuniform.
+\end{abstract}
+\noindent\textbf{Keywords.} Weighted Wiener index, tree metric, quadratic assignment, exchange inequality.
+\section{The assignment problem}
+Let $T$ be a finite tree with distance $d$ induced by positive edge lengths. At vertex $v$ fix a mass $c_v\ge0$. Assign the elements of a multiset of nonnegative real loads bijectively to the vertices, writing $s_v$ for the load at $v$ and $m_v=c_v+s_v$. We study the function
+\[
+ F(s)=\sum_{\{u,v\}\subset V(T),\,u\ne v}m_um_vd(u,v).
+\]
+Each unordered pair occurs once. The freedom to exchange loads while keeping the background fixed models, for example, a change in the locations of pendant stars on a tree that already has different numbers of leaves at different vertices. For this example, take $c_v$ equal to one plus the number of stationary leaves and let $s_v$ count the new leaves. Distances between groups contribute the displayed sum. Each leaf contributes one additional distance unit for each of the other vertices, so the ordinary Wiener index of the expanded tree differs from $F$ by a constant independent of the assignment.
+
+Klav\v{z}ar and Gutman [1] studied the vertex-weighted Wiener index. For points on a line, \c{C}ela et al. [2, Theorem 3.2 and concluding remarks] proved existence of a V-shaped maximizing permutation and described the corresponding pyramidal minimum. Goubko [3] maximized a weighted Wiener index over tree realizations of prescribed weight and degree sequences. Here the tree and its edge lengths are fixed. Our question is quantitative: given a violation of the path shape, how much can a single exchange improve the objective? A branch incident with the path can increase this improvement even when none of its loads is exchanged.
+\section{A three-vertex exchange bound}
+Fix vertices $x,z,y$ with $z$ strictly between $x$ and $y$. Write $a=d(x,z)$, $b=d(z,y)$ and $L=a+b$. Each vertex $v$ has a unique projection onto the path from $x$ to $y$, namely the first point at which the path from $v$ meets that path. Let $B$ denote the total mass of vertices projecting to $z$, including $z$ itself.
+
+\textbf{Theorem 1.} Suppose $s_z<\min(s_x,s_y)$ and put $\sigma=1$, or suppose $s_z>\max(s_x,s_y)$ and put $\sigma=-1$. Set $p=|s_x-s_z|$ and $q=|s_y-s_z|$. For $i=x,y$ let $s^{iz}$ exchange the loads at $i$ and $z$. The larger of the two directed improvements $G_i=\sigma(F(s)-F(s^{iz}))$ satisfies
+\[
+ \max(G_x,G_y)\ \ge\ \frac{ab[2B+\sigma(p+q)]}{b/p+a/q}. \tag{1}
+\]
+In the valley case the right side is positive. In the peak case it is positive whenever $2c_z+s_x+s_y>0$.
+
+\textit{Proof.} Define $U(i)=\sum_v m_vd(v,i)$. Transferring an amount $t$ from $i$ to $z$ changes $F$ by $t(U(z)-U(i))-t^2d(i,z)$, by expanding the quadratic form. To exchange the loads, take $t=s_i-s_z$. Thus, writing $p_x=p$ and $p_y=q$, we have
+\[
+ G_i/p_i=U(i)-U(z)+\sigma p_i d(i,z).
+\]
+Parametrize the path by distance from $x$. If the projection of $v$ has coordinate $r$, its distance to coordinate $t$ equals a constant plus $|r-t|$. Convexity gives $bd(v,x)+ad(v,y)-Ld(v,z)\ge0$. For a vertex projecting to $z$ the left side equals $2ab$. Summing with weights $m_v$ yields
+\[
+ bU(x)+aU(y)-LU(z)\ge 2abB .
+\]
+Consequently $(b/p)G_x+(a/q)G_y\ge ab[2B+\sigma(p+q)]$. Dividing by the sum of the two positive coefficients proves (1). For a peak, $2B-p-q\ge2(c_z+s_z)-(2s_z-s_x-s_y)=2c_z+s_x+s_y$. For a valley use $p+q>0$. $\square$
+
+The branch term can be seen in a unit star with centre $z$ and leaves $x,y,u$. Give each vertex stationary mass one. With loads $(s_x,s_z,s_y,s_u)=(3,0,3,1)$ the mass projecting to $z$ is $3$. Exchanging $z$ with either $x$ or $y$ reduces $F$ from $74$ to $56$, attaining (1). With loads $(0,3,0,1)$ the analogous exchange increases $F$ from $26$ to $35$. These values follow by summing $m_i(M-m_i)$ over the three leaves, where $M$ is total mass: each edge separates its leaf from the remaining vertices.
+\section{Sharp thresholds for near-optimal assignments}
+Let $\ell$ be the shortest edge length, $c=\min_v c_v$, and $u$ the smallest load. Assume at least two distinct load values occur and let $h$ be the smallest positive difference between distinct load values. Write $F_{\min}$ and $F_{\max}$ for the extrema over the prescribed assignments.
+
+\textbf{Theorem 2.} If $F(s)-F_{\min}<\ell h(c+u+h)$, every nonempty set $\{v:s_v\ge t\}$ induces a connected subtree. If $F_{\max}-F(s)<\ell h(c+u)$, every nonempty set $\{v:s_v\le t\}$ induces a connected subtree. Both thresholds are sharp over this class of instances.
+
+\textit{Proof.} Disconnectedness of an upper level set supplies a path with endpoints in the set and an interior vertex outside it. This is a strict valley. In (1), $p,q\ge h$, $B\ge c+u$ and $ab/(a+b)\ge\ell/2$. The better exchange saves at least $\ell h(c+u+h)$. For a disconnected lower level set use a peak and the estimate $2B-p-q\ge2(c+u)$ instead. Either improvement is bounded above by the corresponding global optimality gap.
+
+For sharpness take a three-vertex path, both edges of length $\ell$, and equal stationary masses $c$. For the minimum assign loads $(u+h,u,u+h)$. For the maximum assign $(u,u+h,u)$. In each case the only other distinct configurations are the two equivalent endpoint exchanges. Their improvements, computed from the pair sum, equal $\ell h(c+u+h)$ and $\ell h(c+u)$ respectively. The offending level set consists of the two endpoints. $\square$
+
+The same argument applies when every single exchange improves the objective by less than the relevant threshold, even if the global gap is unknown. If $c+u=0$, a maximizing assignment can indeed have a strict peak: one nonzero load anywhere on a tree with zero background gives $F=0$ for every assignment. For positive background the connectedness conclusion holds for every maximizer, including when loads repeat.
+\section{Two load values on a nonuniform path}
+Let the path coordinates be $x_1<\cdots<x_n$, and suppose $k$ of the loads are high, where $0<k<n$. Assume $c+u>0$ and denote the high load by $u+h$. At a minimum the high sites form an interval of $k$ vertices by Theorem 2. At a maximum the low sites form an interval of $n-k$ vertices. The location of either interval can depend on both the stationary masses and the edge lengths.
+
+\textbf{Proposition 3.} Given the ordered path and the two load multiplicities, a minimizing assignment and a maximizing assignment can each be computed using $O(n)$ arithmetic operations and $O(n)$ space.
+
+\textit{Proof.} Use background $w_i=c_i+u$ and step $t=h$ for minimization. For maximization use background $w_i=c_i+u+h$ and step $t=-h$. An interval $I=[r,j]$ of the prescribed size receives the step. If $F_0$ denotes the pair sum for $w$ and $U_i=\sum_l w_l|x_l-x_i|$, direct expansion gives
+\[
+ F_I=F_0+t\sum_{i=r}^j U_i+t^2\sum_{i=r}^j(2i-r-j)x_i .
+\]
+The coefficient of $x_i$ in the final sum counts earlier indices minus later indices in $I$. To compute all $U_i$, put $P_i=\sum_{l\le i}w_l$ and $Q_i=\sum_{l\le i}w_lx_l$. Then
+\[
+ U_i=x_i P_i-Q_i+(Q_n-Q_i)-x_i(P_n-P_i).
+\]
+Also $F_0=\tfrac12\sum_i w_i U_i$. Prefix sums of $U_i$, $x_i$ and $ix_i$ now give each candidate value in constant time. Scanning all possible left endpoints gives the desired extrema and their positions. $\square$
+
+This scan uses the two-level assumption. With more levels the necessary connectivity of each level set still applies, but the choices of nested intervals interact. On a branching host even a single connected level set can have many possible shapes. Determining which of those shapes attain the sharp exchange threshold beyond the symmetric examples above is a further question.
+\section{Finite verification}
+The accompanying Python script checks (1) with integer arithmetic. It generates every labelled tree on $n=2,3,4,5$ vertices using Pr\"ufer sequences, with labels $0,\ldots,n-1$. Edge $ij$ has length $1+((i+j)\bmod 3)$, vertex $i$ has background $1+(i\bmod 3)$, and each load ranges independently over $\{0,1,3\}$. For each applicable triple, the script recomputes both swapped objectives from the unordered pair sum and clears the positive denominators in (1).
+
+The enumeration covers 145 trees and 31,761 assignments. All 50,865 valley inequalities and 50,865 peak inequalities held. The script also compares the interval scan to direct enumeration for each $2\le n\le10$ and $1\le k<n$ on a specified nonuniform path, giving 45 checks of each extremum. These finite checks concern the stated input families. The proofs above cover arbitrary positive edge lengths and nonnegative real loads under the hypotheses of each result.
+
+\textbf{Draft provenance.} OpenAI Codex assisted in formulating the problem, deriving the proofs, writing the manuscript and implementing the checks. Scientific Agent Skills [4] supplied writing and literature-search guidance. Independent author review is pending.
+\section*{References}
+[1] S. Klav\v{z}ar and I. Gutman, Wiener number of vertex-weighted graphs and a chemical application, Discrete Applied Mathematics 80 (1997), 73--81.
+
+[2] E. \c{C}ela, N. S. Schmuck, S. Wimer and G. J. Woeginger, The Wiener maximum quadratic assignment problem, Discrete Optimization 8 (2011), 411--416. DOI 10.1016/j.disopt.2011.02.002.
+
+[3] M. Goubko, Maximizing Wiener index for trees with given vertex weight and degree sequences, Applied Mathematics and Computation 316 (2018), 102--114. DOI 10.1016/j.amc.2017.07.077.
+
+[4] T. Kassis, V. Agarwal, Y. He, D. Patel and A. M. Brueckner, Scientific Agent Skills: A Library of Procedural Knowledge for Research Agents, arXiv:2609.00065 (2026).
+\end{document}
